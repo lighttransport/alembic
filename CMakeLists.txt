@@ -72,7 +72,7 @@ OPTION(USE_STATIC_HDF5 "Build with static HDF5 libs" OFF)
 OPTION(USE_TESTS "Include Alembic tests" OFF)
 OPTION(ALEMBIC_BUILD_LIBS "Build library, if off use external alembic libs" ON)
 #OPTION(ALEMBIC_ILMBASE_LINK_STATIC "IlmBase is a static library" OFF)
-OPTION(ALEMBIC_SHARED_LIBS "Build shared libraries" ON)
+OPTION(ALEMBIC_SHARED_LIBS "Build shared libraries" OFF)
 OPTION(ALEMBIC_LIB_USES_BOOST
     "Main Alembic library uses boost for things like shared_ptr" OFF)
 OPTION(ALEMBIC_LIB_USES_TR1
@@ -90,6 +90,9 @@ IF (ALEMBIC_SHARED_LIBS)
         ADD_DEFINITIONS(-DALEMBIC_DLL)
     ENDIF()
 ENDIF(ALEMBIC_SHARED_LIBS)
+
+# Set C++11
+SET(CMAKE_CXX_STANDARD 11)
 
 # Need to test this on multiple platforms, it is an easy way to enable
 # memory checks like valgrind by doing:
@@ -162,9 +165,10 @@ IF (${WINDOWS})
         ENDIF ()
     ENDIF ()
     ADD_DEFINITIONS(-DPLATFORM_WINDOWS -DPLATFORM=WINDOWS)
-    IF (NOT ALEMBIC_ILMBASE_LINK_STATIC)
-        ADD_DEFINITIONS(-DOPENEXR_DLL)
-    ENDIF()
+    # Don't build ilmbase as dll.
+    #IF (NOT ALEMBIC_ILMBASE_LINK_STATIC)
+    #    ADD_DEFINITIONS(-DOPENEXR_DLL)
+    #ENDIF()
 ELSEIF (${DARWIN})
     #ADD_DEFINITIONS(-DPLATFORM_DARWIN -DPLATFORM=DARWIN "-arch x86_64")
     ADD_DEFINITIONS(-DPLATFORM_DARWIN -DPLATFORM=DARWIN)
