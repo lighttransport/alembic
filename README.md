@@ -10,13 +10,14 @@
 * [x] Android
 * [x] AARCH64 linux
 * [x] x86 linux
+* [x] Visual Studio 2017
 
 ## How to build
 
 This repo is indended for building `libAlembic` on AARCH64 platform(and x64 platform as a bonus).
 
-This repo builds a monolitic libAlembic.
-ilmbase codes are added directly to `libAlembic` to avoid an issue of library dependency.
+This repo builds a monolitic libAlembic(or `Alembic.dll` on Windows).
+ilmbase codes are added directly to `libAlembic` to avoid an issue of library dependencies.
 You may face an linking issue if you use ilmbase in other place of your application.
 
 ### Setup
@@ -41,7 +42,7 @@ to checkout ilmbase-aarch64 submodule.
 
 ## TODO
 
-* [ ] Windows build(x64, arm)
+* [ ] Windows build(arm)
 * [ ] Write Android example
 
 ## License
