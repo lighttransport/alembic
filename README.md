@@ -13,11 +13,19 @@
 
 ## How to build
 
-This repo is indended for building `libAlembic`.
+This repo is indended for building `libAlembic` on AARCH64 platform(and x64 platform as a bonus).
 
 This repo builds a monolitic libAlembic.
 ilmbase codes are added directly to `libAlembic` to avoid an issue of library dependency.
 You may face an linking issue if you use ilmbase in other place of your application.
+
+### Setup
+
+```
+$ git submodule update --init
+```
+
+to checkout ilmbase-aarch64 submodule.
 
 ### AARCH64 cross compiling
 
