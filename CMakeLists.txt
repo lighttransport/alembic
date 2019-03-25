@@ -69,9 +69,9 @@ OPTION(USE_PRMAN "Include PRMan stuff" OFF)
 OPTION(USE_PYALEMBIC "Include PyAlembic stuff" OFF)
 OPTION(USE_STATIC_BOOST "Build with static Boost libs" OFF)
 OPTION(USE_STATIC_HDF5 "Build with static HDF5 libs" OFF)
-OPTION(USE_TESTS "Include Alembic tests" ON)
+OPTION(USE_TESTS "Include Alembic tests" OFF)
 OPTION(ALEMBIC_BUILD_LIBS "Build library, if off use external alembic libs" ON)
-OPTION(ALEMBIC_ILMBASE_LINK_STATIC "IlmBase is a static library" OFF)
+#OPTION(ALEMBIC_ILMBASE_LINK_STATIC "IlmBase is a static library" OFF)
 OPTION(ALEMBIC_SHARED_LIBS "Build shared libraries" ON)
 OPTION(ALEMBIC_LIB_USES_BOOST
     "Main Alembic library uses boost for things like shared_ptr" OFF)
@@ -227,8 +227,25 @@ IF (ALEMBIC_LIB_USES_BOOST OR USE_PYALEMBIC)
 ENDIF()
 
 # IlmBase
-INCLUDE("./cmake/AlembicIlmBase.cmake")
-INCLUDE_DIRECTORIES(${ALEMBIC_ILMBASE_INCLUDE_DIRECTORY})
+#IF (ALEMBIC_ILMBASE_LINK_STATIC)
+#  SET(BUILD_ILMBASE_STATIC On)
+#ELSE()
+#  SET(OPENEXR_BUILD_SHARED On)
+#ENDIF()
+
+#ADD_SUBDIRECTORY("./third_party/ilmbase-aarch64")
+
+# TODO(LTE): Move to lib/Alembic/CMakeLists.txt
+INCLUDE_DIRECTORIES(
+	"./third_party/ilmbase-aarch64/config"
+	"./third_party/ilmbase-aarch64/Half"
+	"./third_party/ilmbase-aarch64/Imath"
+	"./third_party/ilmbase-aarch64/Iex"
+	"./third_party/ilmbase-aarch64/IexMath"
+	)
+#LIST(APPEND ALEMBIC_ILMBASE_LIBS Iex Half)
+#INCLUDE("./cmake/AlembicIlmBase.cmake")
+#INCLUDE_DIRECTORIES(${ALEMBIC_ILMBASE_INCLUDE_DIRECTORY})
 
 # HDF5
 IF (USE_HDF5)
@@ -247,7 +264,7 @@ ENDIF()
 IF (ALEMBIC_BUILD_LIBS)
     ADD_SUBDIRECTORY(lib)
     INCLUDE_DIRECTORIES("${CMAKE_SOURCE_DIR}/lib" "${PROJECT_BINARY_DIR}/lib")
-    ADD_LIBRARY( Alembic::Alembic ALIAS Alembic )
+    ADD_LIBRARY( Alembic::Alembic ALIAS Alembic)
 ELSE()
     FIND_PACKAGE(Alembic REQUIRED CONFIG HINTS ${ALEMBIC_ROOT})
     MESSAGE(STATUS "Using external Alembic")

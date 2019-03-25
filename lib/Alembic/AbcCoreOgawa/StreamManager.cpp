@@ -45,6 +45,28 @@ namespace ALEMBIC_VERSION_NS {
 // C++11 std::atomics version
 #if !defined( ALEMBIC_LIB_USES_TR1 ) && __cplusplus >= 201103L
 #define COMPARE_EXCHANGE( V, COMP, EXCH ) V.compare_exchange_weak( COMP, EXCH, std::memory_order_seq_cst, std::memory_order_seq_cst )
+
+#if defined(ANDROID)
+
+Alembic::Util::int64_t ffsll( Alembic::Util::int64_t iValue )
+{
+    if ( !iValue )
+    {
+        return 0;
+    }
+
+    for ( Alembic::Util::int64_t bit = 0; bit < 64; ++bit )
+    {
+        if ( iValue & ( Alembic::Util::int64_t( 1 ) << bit ) )
+        {
+            return bit + 1;
+        }
+    }
+
+    return 0;
+}
+#endif
+
 // Windows
 #elif defined( _MSC_VER )
 #define COMPARE_EXCHANGE( V, COMP, EXCH ) (InterlockedCompareExchange64( &V, EXCH, COMP ) == COMP)

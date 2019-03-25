@@ -48,7 +48,18 @@ ADD_SUBDIRECTORY(AbcCollection)
 ADD_SUBDIRECTORY(AbcMaterial)
 ADD_SUBDIRECTORY(Ogawa)
 
+# Directly add ilmbase codes to libAlembic
+LIST(APPEND CXX_FILES
+	${CMAKE_SOURCE_DIR}/third_party/ilmbase-aarch64/Half/eLut.cpp
+	${CMAKE_SOURCE_DIR}/third_party/ilmbase-aarch64/Half/half.cpp
+	${CMAKE_SOURCE_DIR}/third_party/ilmbase-aarch64/Iex/IexBaseExc.cpp
+	)
+
+
 ADD_LIBRARY(Alembic ${LIB_TYPE} ${CXX_FILES})
+
+
+
 
 TARGET_INCLUDE_DIRECTORIES(Alembic
     PUBLIC
@@ -70,7 +81,7 @@ ENDIF()
 
 TARGET_LINK_LIBRARIES(Alembic
     LINK_PUBLIC
-    ${ALEMBIC_ILMBASE_LIBS}
+    #${ALEMBIC_ILMBASE_LIBS}
     ${CMAKE_THREAD_LIBS_INIT}
     ${EXTERNAL_MATH_LIBS}
     LINK_PRIVATE
@@ -96,44 +107,44 @@ INSTALL(TARGETS Alembic
 # PACKAGE EXPORTS
 #-******************************************************************************
 
-CONFIGURE_FILE(AlembicConfig.cmake.in
-    "${CMAKE_CURRENT_BINARY_DIR}/AlembicConfig.cmake"
-    @ONLY
-    )
-
-INCLUDE(CMakePackageConfigHelpers)
-WRITE_BASIC_PACKAGE_VERSION_FILE(
-    "${CMAKE_CURRENT_BINARY_DIR}/AlembicConfigVersion.cmake"
-    VERSION
-    ${PROJECT_VERSION}
-    COMPATIBILITY
-    AnyNewerVersion
-    )
-
-EXPORT(TARGETS
-    Alembic
-    FILE
-    "${CMAKE_CURRENT_BINARY_DIR}/AlembicTargets.cmake"
-    NAMESPACE
-    Alembic::
-    )
-
-SET(ConfigPackageLocation lib/cmake/Alembic CACHE PATH
-    "Where to install the Alembic's cmake files")
-
-INSTALL(FILES
-    "${CMAKE_CURRENT_BINARY_DIR}/AlembicConfig.cmake"
-    "${CMAKE_CURRENT_BINARY_DIR}/AlembicConfigVersion.cmake"
-    DESTINATION
-    ${ConfigPackageLocation}
-    )
-
-INSTALL(EXPORT
-    AlembicTargets
-    FILE
-    AlembicTargets.cmake
-    NAMESPACE
-    Alembic::
-    DESTINATION
-    ${ConfigPackageLocation}
-    )
+#CONFIGURE_FILE(AlembicConfig.cmake.in
+#    "${CMAKE_CURRENT_BINARY_DIR}/AlembicConfig.cmake"
+#    @ONLY
+#    )
+#
+#INCLUDE(CMakePackageConfigHelpers)
+#WRITE_BASIC_PACKAGE_VERSION_FILE(
+#    "${CMAKE_CURRENT_BINARY_DIR}/AlembicConfigVersion.cmake"
+#    VERSION
+#    ${PROJECT_VERSION}
+#    COMPATIBILITY
+#    AnyNewerVersion
+#    )
+#
+#EXPORT(TARGETS
+#    Alembic
+#    FILE
+#    "${CMAKE_CURRENT_BINARY_DIR}/AlembicTargets.cmake"
+#    NAMESPACE
+#    Alembic::
+#    )
+#
+#SET(ConfigPackageLocation lib/cmake/Alembic CACHE PATH
+#    "Where to install the Alembic's cmake files")
+#
+#INSTALL(FILES
+#    "${CMAKE_CURRENT_BINARY_DIR}/AlembicConfig.cmake"
+#    "${CMAKE_CURRENT_BINARY_DIR}/AlembicConfigVersion.cmake"
+#    DESTINATION
+#    ${ConfigPackageLocation}
+#    )
+#
+#INSTALL(EXPORT
+#    AlembicTargets
+#    FILE
+#    AlembicTargets.cmake
+#    NAMESPACE
+#    Alembic::
+#    DESTINATION
+#    ${ConfigPackageLocation}
+#    )

@@ -1,3 +1,50 @@
+# AARCH64 port of Alembic
+
+## Requirements
+
+* CMake
+* C++11 compiler
+
+## Supported platform
+
+* [x] Android
+* [x] AARCH64 linux
+* [x] x86 linux
+
+## How to build
+
+This repo is indended for building `libAlembic`.
+
+This repo builds a monolitic libAlembic.
+ilmbase codes are added directly to `libAlembic` to avoid an issue of library dependency.
+You may face an linking issue if you use ilmbase in other place of your application.
+
+### AARCH64 cross compiling
+
+`scripts/bootstrap-aarch64-gcc-cross-linux.sh`
+
+### Android aarch64
+
+`scripts/bootstrap-android-cross-linux.sh`
+
+### x64 build
+
+`scripts/bootstrap-x64-linux.sh`
+
+## TODO
+
+* [ ] Windows build(x64, arm)
+* [ ] Write Android example
+
+## License
+
+AARCH64 modification part is Copyright 2019 Light Transport Entertainment, Inc.
+Licensed under 3 clause BSD License(same license as in original Alembic).
+
+
+Following is the original Alembic README.
+
+```
 -------------------------------------------------------------------------------
 - Alembic
 -
@@ -116,4 +163,4 @@ If you get stuck, contact us on the alembic-discussion mailing list. You can
 view the mailing list archives and join the mailing list via
 
 http://groups.google.com/group/alembic-discussion
-
+```
