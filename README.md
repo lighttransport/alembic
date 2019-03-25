@@ -28,17 +28,21 @@ $ git submodule update --init
 
 to checkout ilmbase-aarch64 submodule.
 
-### AARCH64 cross compiling
+### AARCH64 cross compiling on linux
 
 `scripts/bootstrap-aarch64-gcc-cross-linux.sh`
 
-### Android aarch64
+### Android aarch64 on linux
 
 `scripts/bootstrap-android-cross-linux.sh`
 
-### x64 build
+### x64 linux build
 
 `scripts/bootstrap-x64-linux.sh`
+
+### Visual Studio build
+
+Run a batch file: `vcsetup17.bat`
 
 ## TODO
 
