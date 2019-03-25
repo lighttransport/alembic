@@ -61,7 +61,7 @@ SET(VERSION ${PROJECT_VERSION})
 #-******************************************************************************
 
 OPTION(USE_ARNOLD "Include Arnold stuff" OFF)
-OPTION(USE_BINARIES "Include binaries" ON)
+OPTION(USE_BINARIES "Include binaries" OFF)
 OPTION(USE_EXAMPLES "Include examples" OFF)
 OPTION(USE_HDF5 "Include HDF5 stuff" OFF)
 OPTION(USE_MAYA "Include Maya stuff" OFF)
@@ -241,11 +241,11 @@ ENDIF()
 
 # TODO(LTE): Move to lib/Alembic/CMakeLists.txt
 INCLUDE_DIRECTORIES(
-	"./third_party/ilmbase-aarch64/config"
-	"./third_party/ilmbase-aarch64/Half"
-	"./third_party/ilmbase-aarch64/Imath"
-	"./third_party/ilmbase-aarch64/Iex"
-	"./third_party/ilmbase-aarch64/IexMath"
+	"${PROJECT_SOURCE_DIR}/third_party/ilmbase-aarch64/config"
+	"${PROJECT_SOURCE_DIR}/third_party/ilmbase-aarch64/Half"
+	"${PROJECT_SOURCE_DIR}/third_party/ilmbase-aarch64/Imath"
+	"${PROJECT_SOURCE_DIR}/third_party/ilmbase-aarch64/Iex"
+	"${PROJECT_SOURCE_DIR}/third_party/ilmbase-aarch64/IexMath"
 	)
 #LIST(APPEND ALEMBIC_ILMBASE_LIBS Iex Half)
 #INCLUDE("./cmake/AlembicIlmBase.cmake")
@@ -267,7 +267,7 @@ ENDIF()
 # Alembic
 IF (ALEMBIC_BUILD_LIBS)
     ADD_SUBDIRECTORY(lib)
-    INCLUDE_DIRECTORIES("${CMAKE_SOURCE_DIR}/lib" "${PROJECT_BINARY_DIR}/lib")
+    INCLUDE_DIRECTORIES("${PROJECT_SOURCE_DIR}/lib" "${PROJECT_BINARY_DIR}/lib")
     ADD_LIBRARY( Alembic::Alembic ALIAS Alembic)
 ELSE()
     FIND_PACKAGE(Alembic REQUIRED CONFIG HINTS ${ALEMBIC_ROOT})

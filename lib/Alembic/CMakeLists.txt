@@ -50,9 +50,9 @@ ADD_SUBDIRECTORY(Ogawa)
 
 # Directly add ilmbase codes to libAlembic
 LIST(APPEND CXX_FILES
-	${CMAKE_SOURCE_DIR}/third_party/ilmbase-aarch64/Half/eLut.cpp
-	${CMAKE_SOURCE_DIR}/third_party/ilmbase-aarch64/Half/half.cpp
-	${CMAKE_SOURCE_DIR}/third_party/ilmbase-aarch64/Iex/IexBaseExc.cpp
+	${PROJECT_SOURCE_DIR}/third_party/ilmbase-aarch64/Half/eLut.cpp
+	${PROJECT_SOURCE_DIR}/third_party/ilmbase-aarch64/Half/half.cpp
+	${PROJECT_SOURCE_DIR}/third_party/ilmbase-aarch64/Iex/IexBaseExc.cpp
 	)
 
 
@@ -60,10 +60,9 @@ ADD_LIBRARY(Alembic ${LIB_TYPE} ${CXX_FILES})
 
 
 
-
 TARGET_INCLUDE_DIRECTORIES(Alembic
     PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/lib>
+    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/lib>
     $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/lib>
     $<INSTALL_INTERFACE:$<INSTALL_PREFIX>/include>
     ${ALEMBIC_ILMBASE_INCLUDE_DIRECTORY}
