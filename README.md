@@ -23,7 +23,7 @@ You may face an linking issue if you use ilmbase in other place of your applicat
 ### Setup
 
 ```
-$ git submodule update --init
+$ git submodule update --init --depth 1
 ```
 
 to checkout ilmbase-aarch64 submodule.
