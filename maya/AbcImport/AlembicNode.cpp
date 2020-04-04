@@ -73,8 +73,6 @@
 #endif
 
 #include <Alembic/AbcCoreFactory/IFactory.h>
-#include <Alembic/AbcCoreHDF5/ReadWrite.h>
-#include <Alembic/AbcCoreOgawa/ReadWrite.h>
 #include <Alembic/AbcGeom/Visibility.h>
 
 MObject AlembicNode::mTimeAttr;
@@ -325,6 +323,7 @@ MStatus AlembicNode::initialize()
     status = gAttr.addDataAccept(MFnData::kString);
     status = gAttr.addDataAccept(MFnData::kIntArray);
     status = gAttr.addDataAccept(MFnData::kDoubleArray);
+    status = gAttr.addDataAccept(MFnData::kFloatArray);
     status = gAttr.addDataAccept(MFnData::kVectorArray);
     status = gAttr.addDataAccept(MFnData::kPointArray);
 
@@ -382,17 +381,17 @@ MStatus AlembicNode::initialize()
 
 double AlembicNode::getFPS()
 {
-    float fps = 24.0f;
+    double fps = 24.0f;
     MTime::Unit unit = MTime::uiUnit();
     if (unit!=MTime::kInvalid)
     {
         MTime time(1.0, MTime::kSeconds);
-        fps = static_cast<float>(time.as(unit));
+        fps = time.as(unit);
     }
 
-    if (fps <= 0.f )
+    if (fps <= 0.0 )
     {
-        fps = 24.0f;
+        fps = 24.0;
     }
 
     return fps;
